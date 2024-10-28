@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ease-transition {
+  @apply transition duration-300 ease-out;
+}
+
+.ease-transition {
+  @apply transition duration-300 ease-out;
+}
+
+.menu-item {
+  @apply flex flex-col justify-center gap-6 items-center font-[600] text-[24px] leading-[29px] text-[#000000] cursor-pointer ease-transition hover:scale-[115%]
+}
+
+
+#sound, #pause {
+  box-shadow: 0px 20px 4px 0px #00000040;
+  box-shadow: 0px 10px 4px 0px #00000040 inset;
+}
+
+#display-board {
+  box-shadow: 14px 19px 4px 0px #00000040;
+  box-shadow: 0px -10px 4px 0px #00000040 inset;
+  box-shadow: 0px 5px 18px 0px #00000040;
+}
+
+.selected-option,
+.option {
+  @apply sm:py-4 sm:px-3 p-2 w-[80px] min-w-fit bg-black border text-sm border-white text-white rounded-[10px] font-[500] sm:text-[20px] leading-[24px] md:w-[140px] md:h-[64px] lg:w-[220px] lg:h-[64px] text-center cursor-pointer
+}
+
+.option {
+  @apply ease-transition hover:scale-[103%]
+}
+
+.selected-option {
+  @apply bg-[#098606] border-0 cursor-default
+}
+
+.option-success {
+  @apply bg-[#098606]
+}
+
+.option-failure {
+  @apply bg-[#E72432]
+}
