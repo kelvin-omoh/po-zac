@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../../../firebaseConfig'
 
 const Page = () => {
@@ -79,44 +79,31 @@ const Page = () => {
             const formValid = isEmailValid && isNameValid && isPasswordValid;
 
             e.currentTarget.disabled = formValid;
-            // console.log(formData, e.target.disabled);
 
-            createUserWithEmailAndPassword(auth, formData.email, formData.password)
-                .then((userCredential) => {
-                    // Signed up 
-                    const user = userCredential.user;
-                    console.log(user);
+            const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+            const user = userCredential.user;
 
-                    // Change disabled state after success
-                    updateSuccessState(true);
-                    updateSignupLoading(false);
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
+            // Update user's display name with formData.name
+            await updateProfile(user, { displayName: formData.name });
 
-                    console.log(errorMessage);
-
-                    // update error state
-                    if (errorMessage.includes("network"))
-                        updateRegistrationError({ state: true, message: "There was a network error. Please check your connection" });
-                    else if (errorMessage.includes("email-already-in-use")) {
-                        updateRegistrationError({ state: true, message: "The email is already in use. Try another" });
-                    } else {
-                        updateRegistrationError({ state: true, message: errorMessage.slice(9) });
-                    }
-
-                    // Change disabled state after error
-                    updateSignupLoading(false);
-                    e.currentTarget.disabled = false;
-                });
-        } catch (error) {
-            console.log(error);
-
-            e.currentTarget.disabled = false;
+            // Display success state after setting the display name
+            updateSuccessState(true);
             updateSignupLoading(false);
+            console.log("User signed up with display name:", user.displayName);
+        } catch (error) {
+            const errorMessage = error.message;
+
+            if (errorMessage.includes("network"))
+                updateRegistrationError({ state: true, message: "There was a network error. Please check your connection" });
+            else if (errorMessage.includes("email-already-in-use"))
+                updateRegistrationError({ state: true, message: "The email is already in use. Try another" });
+            else
+                updateRegistrationError({ state: true, message: errorMessage.slice(9) });
+
+            updateSignupLoading(false);
+            e.currentTarget.disabled = false;
         }
-    }
+    };
 
     const handleGoogleSignUp = async () => {
         try {

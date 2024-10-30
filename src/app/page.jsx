@@ -41,26 +41,9 @@ export default function Home() {
       <span className="sr-only">Loading...</span>
     </div>
   )
-  const verifyEmail = (e) => {
-    const inputtedEmail = (e.target.value).trim();
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const emailValid = emailRegex.test(inputtedEmail);
-    if (emailValid) {
-      updateIsEmailValid(true);
-    } else {
-      updateIsEmailValid(false);
-    }
-  };
 
-  const verifyPassword = (e) => {
-    const inputtedPassword = (e.target.value).trim();
-    if (inputtedPassword === "") {
-      updateIsPasswordValid(false);
-    } else {
-      updateIsPasswordValid(true);
-    }
-  };
+
 
   const controlFormDataChanges = (e) => {
     const name = e.target.name;
@@ -80,12 +63,12 @@ export default function Home() {
       .then((userCredential) => {
         const user = userCredential.user;
 
+        
+
         updateLoginLoading(false);
         e.target.disabled = false;
 
-        if (formData.isChecked) {
-          localStorage.setItem("userDetails", JSON.stringify(user));
-        }
+        localStorage.setItem("userDetails", JSON.stringify(user));
         router.push("/game");
       })
       .catch((error) => {
@@ -122,8 +105,7 @@ export default function Home() {
         const user = result.user;
         // console.log(user);
 
-        // if user checked "remember-me", save their details to local Storage
-        formData.isChecked && localStorage.setItem("userDetails", JSON.stringify(user));
+        localStorage.setItem("userDetails", JSON.stringify(user));
 
         router.push("/game");
         // IdP data available using getAdditionalUserInfo(result)
@@ -149,13 +131,13 @@ export default function Home() {
   }
 
   return (
-    <main className="bg-green-50 max-w-screen relative text-[#575A65] sm:overflow-hidden">
+    <main className="bg-green-50 h-screen  max-w-screen relative text-[#575A65] sm:overflow-hidden">
       <div className="bg-green-100 -z-10 w-[28rem] sm:-top-[25%] h-[180%] transform rotate-45 md:-top-[49%] md:-left-[20%] absolute hidden sm:block"></div>
       <div className="bg-green-100 w-[35%] h-[180%] transform rotate-45 md:-right-[5%] absolute hidden sm:block"></div>
 
       <div id="content" className="flex flex-col z-50 relative max-w-screen">
         <div id="logos" className="z-10 flex justify-center w-full md:justify-between md:pr-6 lg:pr-10">
-          <Image src={"/logo-sdg-2.png"} priority width={150} height={150} alt="sdg-game-logo" className="z-10 self-center sm:self-start" />
+          <Image src={"/logo-sdg-2.jpeg"} priority width={100} height={100} alt="sdg-game-logo" className="z-10  sm:p-0 p-[1.3rem] mt-[2rem] rounded-full self-center sm:self-start" />
           <Image src={"/inventors-logo.svg"} priority width={60} height={60} alt="sdg-game-logo" className="z-10 hidden self-center cursor-pointer md:block" />
         </div>
 
@@ -167,12 +149,12 @@ export default function Home() {
 
           {/* The onBlur attribute checks if the user has taken cursor away from the input, That is, out of focus.  */}
           <input type="email" placeholder="Email Address" name="email" className="w-full py-4 border text-[#6B6B6B] border-gray-200 rounded-md px-4"
-            onChange={(e) => { controlFormDataChanges(e); verifyEmail(e) }} onBlur={(e) => verifyEmail(e)} ref={emailRef} />
-          {!isEmailValid ? <p className="text-red-500 text-sm">Enter a valid email</p> : ""}
+            onChange={(e) => { controlFormDataChanges(e) }} ref={emailRef} />
+          {isEmailValid ? <p className="text-red-500 text-sm">Enter a valid email</p> : ""}
 
           <input type="password" placeholder="Password" name="password" className="w-full py-4 border text-[#6B6B6B] border-gray-200 rounded-md px-4"
-            onChange={(e) => { controlFormDataChanges(e); verifyPassword(e) }} onBlur={(e) => verifyPassword(e)} ref={passwordRef} />
-          {!isPasswordValid ? <p className="text-red-500 text-sm">Password can not be empty</p> : ""}
+            onChange={(e) => { controlFormDataChanges(e) }} ref={passwordRef} />
+          {isPasswordValid ? <p className="text-red-500 text-sm">Password can not be empty</p> : ""}
 
           <div id="remember-me" className="flex justify-between text-[15px]">
             <div className="flex gap-2">
@@ -183,8 +165,8 @@ export default function Home() {
             <Link href={"/forgot-password"} className="text-[#007965] font-[500]">Forgot Password ?</Link>
           </div>
 
-          <button disabled={!(isEmailValid && isPasswordValid)} className="text-white bg-[#00B598] cursor-pointer py-3 px-auto rounded ease-transition
-          disabled:opacity-50 hover:bg-[#007965]" onClick={(e) => handleFormSubmission(e)}>{loginLoading ? Spinner : "Log In"}</button>
+          <button className="text-white bg-[#007965] cursor-pointer py-3 px-auto rounded ease-transition
+          disabled:opacity-50 hover:bg-[#1d6e61a4]" onClick={(e) => handleFormSubmission(e)}>{loginLoading ? Spinner : "Log In"}</button>
 
           {loginError.state ? <p className="text-red-500 text-sm">{loginError.message}</p> : ""}
 
