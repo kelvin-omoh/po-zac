@@ -687,7 +687,7 @@ const Page = () => {
 
                 return (
                     <li key={index}>
-                        {displayRank} - {formatName(user.name)}
+                        {index + 1} - {formatName(user.name)}
                         <span className=' text-[42px]  font-bold'>{getAward(displayRank)}
                         </span> ~ {user.score}
                     </li>
