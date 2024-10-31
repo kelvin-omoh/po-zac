@@ -373,11 +373,11 @@ const Page = () => {
             .slice(0, 5); // Take only the top 5 players
 
         const data = {
-            labels: top5Leaderboard.map(user => formatName(user.displayName)),
+            labels: top5Leaderboard.map(user => formatName(user?.name)),
             datasets: [
                 {
                     label: 'High Scores',
-                    data: top5Leaderboard.map(user => user.score),
+                    data: top5Leaderboard.map(user => user?.score),
                     backgroundColor: top5Leaderboard.map(() => getRandomColor()), // Generate random colors for each user
                     borderColor: 'rgba(255, 255, 255, 1)', // White border for the bars
                     borderWidth: 1,
@@ -411,9 +411,17 @@ const Page = () => {
         );
     };
 
+    const getAward = (rank) => {
+        if (rank === 1) return '🏆🥇';  // Gold and big cup for first place
+        if (rank === 2) return '🥈';   // Silver medal for second place
+        if (rank === 3) return '🥉';   // Bronze medal for third place
+        return '🎖'; // General award for others
+    };
+
+
     const formatName = (name) => {
-        const nameParts = name.split(' ');
-        if (nameParts.length > 1) {
+        const nameParts = name?.split(' ');
+        if (nameParts?.length > 1) {
             // If there are multiple names, return "FirstName.LastInitial"
             return `${nameParts[0]} .${nameParts[1][0]}  `;
         }
@@ -661,6 +669,31 @@ const Page = () => {
     };
 
 
+    const renderLeaderboard = (leaderboard) => {
+        let displayRank = 1;
+        let previousScore = null;
+        let rankOffset = 0; // Offset to handle rank progression after ties
+
+        return leaderboard
+            .sort((a, b) => b.score - a.score) // Sort in descending order by score
+            .slice(0, 5) // Take only the top 5 users
+            .map((user, index) => {
+                if (user.score !== previousScore) {
+                    displayRank = index + 1 - rankOffset; // Update display rank for a new score
+                } else {
+                    rankOffset++; // Increment rank offset if scores are tied
+                }
+                previousScore = user.score;
+
+                return (
+                    <li key={index}>
+                        {displayRank} - {formatName(user.name)}
+                        <span className=' text-[42px]  font-bold'>{getAward(displayRank)}
+                        </span> ~ {user.score}
+                    </li>
+                );
+            });
+    };
 
     const fetchLeaderboardData = async () => {
         const leaderboardCollection = collection(db, 'leaderboard'); // Adjust your collection name
@@ -725,30 +758,7 @@ const Page = () => {
                     // Second Div (Highest Rank)
                     <div className="bg-black flex flex-col gap-[1.5rem] rounded-md p-4 text-white">
                         <h1 className="text-3xl font-extrabold underline text-center  pb-4">Highest Rank</h1>
-                        <ul>
-                            {leaderboard
-                                .sort((a, b) => b.score - a.score) // Sort in descending order by score
-                                .slice(0, 5) // Take only the top 5 users
-                                .map((user, index) => {
-                                    // Determine the award based on the position
-                                    let award;
-                                    if (index === 0) {
-                                        award = '🏆🥇'; // Big cup for the winner
-                                    } else if (index === 1) {
-                                        award = '🥈'; // Silver medal for second place
-                                    } else if (index === 2) {
-                                        award = '🥉'; // Bronze medal for third place
-                                    } else {
-                                        award = '🎖'; // General award for others
-                                    }
-
-                                    return (
-                                        <li key={index}>
-                                            {index + 1} - {formatName(user.displayName)} <span className=' text-[48px] '>{award}</span> {user.score}
-                                        </li>
-                                    );
-                                })}
-                        </ul>
+                        <ul>{renderLeaderboard(leaderboard)}</ul>
                         <LeaderboardChart leaderboard={leaderboard} />
                         <div id='restart' className='cursor-pointer self-center' onClick={resetGame}>
                             <div className='p-3 mt-[.2rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
