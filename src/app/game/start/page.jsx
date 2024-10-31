@@ -757,7 +757,7 @@ const Page = () => {
                 ) : (
                     // Second Div (Highest Rank)
                     <div className="bg-black flex flex-col gap-[1.5rem] rounded-md p-4 text-white">
-                        <h1 className="text-3xl font-extrabold underline text-center  pb-4">Highest Rank</h1>
+                        <h1 className="text-3xl font-extrabold underline text-center  pb-4">Top 5 Highest Rank</h1>
                         <ul>{renderLeaderboard(leaderboard)}</ul>
                         <LeaderboardChart leaderboard={leaderboard} />
                         <div id='restart' className='cursor-pointer self-center' onClick={resetGame}>
