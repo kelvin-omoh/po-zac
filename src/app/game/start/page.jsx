@@ -373,7 +373,7 @@ const Page = () => {
             .slice(0, 5); // Take only the top 5 players
 
         const data = {
-            labels: top5Leaderboard.map(user => formatName(user?.name)),
+            labels: top5Leaderboard.map(user => formatName(user?.displayName)),
             datasets: [
                 {
                     label: 'High Scores',
@@ -687,7 +687,7 @@ const Page = () => {
 
                 return (
                     <li key={index}>
-                        {displayRank} - {formatName(user.name)}
+                        {displayRank} - {formatName(user.displayName)}
                         <span className=' text-[42px]  font-bold'>{getAward(displayRank)}
                         </span> ~ {user.score}
                     </li>
