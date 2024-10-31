@@ -373,37 +373,51 @@ const Page = () => {
             .slice(0, 5); // Take only the top 5 players
 
         const data = {
-            labels: top5Leaderboard.map(user => user.displayName),
+            labels: top5Leaderboard.map(user => formatName(user.displayName)),
             datasets: [
                 {
                     label: 'High Scores',
                     data: top5Leaderboard.map(user => user.score),
                     backgroundColor: top5Leaderboard.map(() => getRandomColor()), // Generate random colors for each user
-                    borderColor: 'rgba(255, 255, 255, 1)', // White border for the pie slices
+                    borderColor: 'rgba(255, 255, 255, 1)', // White border for the bars
                     borderWidth: 1,
                 },
             ],
         };
-
         const options = {
+            indexAxis: 'y', // Horizontal bar chart
             scales: {
-                y: {
+                x: {
                     beginAtZero: true,
+                },
+            },
+            plugins: {
+                legend: {
+                    display: false, // Hide legend for simplicity
                 },
             },
         };
 
         return (
-            <div className="w-full h-64">
+            <div className="w-full">
                 {isSmallScreen ? (
                     // Render Pie chart for small screens
-                    <Pie data={data} options={{ plugins: { legend: { display: true } } }} />
+                    <Bar data={data} options={options} />
                 ) : (
                     // Render Bar chart for larger screens
                     <Bar data={data} options={options} />
                 )}
             </div>
         );
+    };
+
+    const formatName = (name) => {
+        const nameParts = name.split(' ');
+        if (nameParts.length > 1) {
+            // If there are multiple names, return "FirstName.LastInitial"
+            return `${nameParts[0]} .${nameParts[1][0]}  `;
+        }
+        return name; // Otherwise, return the name as it is
     };
 
     useEffect(() => {
@@ -715,15 +729,29 @@ const Page = () => {
                             {leaderboard
                                 .sort((a, b) => b.score - a.score) // Sort in descending order by score
                                 .slice(0, 5) // Take only the top 5 users
-                                .map((user, index) => (
-                                    <li key={index}>
-                                        {index + 1} - {user?.displayName}: {user.score}
-                                    </li>
-                                ))}
+                                .map((user, index) => {
+                                    // Determine the award based on the position
+                                    let award;
+                                    if (index === 0) {
+                                        award = '🏆🥇'; // Big cup for the winner
+                                    } else if (index === 1) {
+                                        award = '🥈'; // Silver medal for second place
+                                    } else if (index === 2) {
+                                        award = '🥉'; // Bronze medal for third place
+                                    } else {
+                                        award = '🎖'; // General award for others
+                                    }
+
+                                    return (
+                                        <li key={index}>
+                                            {index + 1} - {formatName(user.displayName)} <span className=' text-[48px] '>{award}</span> {user.score}
+                                        </li>
+                                    );
+                                })}
                         </ul>
                         <LeaderboardChart leaderboard={leaderboard} />
                         <div id='restart' className='cursor-pointer self-center' onClick={resetGame}>
-                            <div className='p-3 mt-[4rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
+                            <div className='p-3 mt-[.2rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
                                 <Image src={"/game/restart-icon.svg"} className='w-[34px] h-[41px]' priority width={50} height={50} alt='restart-icon' />
                                 Try again
                             </div>
@@ -786,7 +814,7 @@ const Page = () => {
     // }, [gameStatus, score]);
 
     return (
-        <div id='game-page' className='bg-blue-950 p-3 md:p-8 w-full h-screen'>
+        <div id='game-page' className='bg-blue-950 p-3 md:p-0 w-full h-screen'>
             {showModal ? <Modal blur show={true}>
                 <h1 className='text-white text-4xl font-extrabold p-12'>{compliments[Math.floor(compliments.length * Math.random())]}</h1>
             </Modal> : ""}

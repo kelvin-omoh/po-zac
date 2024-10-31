@@ -12,7 +12,7 @@ const Page = () => {
             <div id="main-game-page-content" className='bg-[url("/game/wood-bg.jpg")] rounded-2xl w-full h-screen '>
                 <header className='grid grid-cols-3 py-8 px-8 items-center justify-center w-full my-4 mb-12'>
                     <div id='back-button' className=''
-                        onClick={() => router.back()}>
+                        onClick={() => router.push('/game')}>
                         <Image src={"/game/back-icon.svg"} className='w-[25px] h-[25px]' priority width={15} height={15} alt='menu-icon' />
                     </div>
 

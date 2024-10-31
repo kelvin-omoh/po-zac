@@ -18,6 +18,7 @@ export default function Home() {
   const [isEmailValid, updateIsEmailValid] = useState(false);
   const [isPasswordValid, updateIsPasswordValid] = useState(false);
   const [loginLoading, updateLoginLoading] = useState(false);
+  const [loginLoading1, updateLoginLoading1] = useState(false);
   const [loginError, updateLoginError] = useState({
     message: "",
     state: false
@@ -95,7 +96,7 @@ export default function Home() {
 
   const handleWithGoogle = async () => {
     updateGoogleLoginError({ state: false, message: "" });
-
+    updateLoginLoading1(true);
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -104,13 +105,14 @@ export default function Home() {
         // The signed-in user info.
         const user = result.user;
         // console.log(user);
-
+        updateLoginLoading1(false);
         localStorage.setItem("userDetails", JSON.stringify(user));
 
         router.push("/game");
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       }).catch((error) => {
+        updateLoginLoading1(false);
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -123,7 +125,7 @@ export default function Home() {
         if (errorMessage.includes("network-request-failed"))
           updateGoogleLoginError({ state: true, message: "There was a network error. Please check your connection" });
 
-      });
+      }).finally(() => updateLoginLoading1(false));
   }
 
   return (
@@ -171,7 +173,11 @@ export default function Home() {
           <button id="google-btn" className="flex px-auto py-3 border border-gray-200 rounded justify-center gap-3 hover:border-[#00B598] hover:text-[#00B598]"
             onClick={() => handleWithGoogle()}>
             <Image src={"/google-icon.png"} width={25} height={25} alt="google-logo" />
-            <span className="font-[500] text-[16px]">Log In with Google</span>
+            <span className="font-[500] text-[16px]">
+              {loginLoading1 ?
+                'Loading...' : ' Log In with Google'
+              }
+            </span>
           </button>
 
           {googleLoginError.state ? <p className="text-red-500 text-sm">{googleLoginError.message}</p> : ""}
