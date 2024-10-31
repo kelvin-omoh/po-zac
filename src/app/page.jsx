@@ -63,7 +63,7 @@ export default function Home() {
       .then((userCredential) => {
         const user = userCredential.user;
 
-        
+
 
         updateLoginLoading(false);
         e.target.disabled = false;
@@ -122,11 +122,7 @@ export default function Home() {
         // update error state
         if (errorMessage.includes("network-request-failed"))
           updateGoogleLoginError({ state: true, message: "There was a network error. Please check your connection" });
-        else if (errorMessage.includes("invalid-credential")) {
-          updateGoogleLoginError({ state: true, message: "Invalid credentials. Please confirm your details" });
-        } else {
-          updateGoogleLoginError({ state: true, message: errorMessage.slice(9) });
-        }
+
       });
   }
 
