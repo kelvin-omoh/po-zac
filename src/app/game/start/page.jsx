@@ -373,7 +373,7 @@ const Page = () => {
             .slice(0, 5); // Take only the top 5 players
 
         const data = {
-            labels: top5Leaderboard.map(user => formatName(user?.displayName)),
+            labels: top5Leaderboard.map(user => formatName(user?.name)),
             datasets: [
                 {
                     label: 'High Scores',
@@ -436,7 +436,7 @@ const Page = () => {
 
                 // Filter and sort by score in descending order
                 const sortedList = scoresList
-                    .filter(user => user.displayName && user.score !== undefined)
+                    .filter(user => user.name && user.score !== undefined)
                     .sort((a, b) => b.score - a.score);
 
                 setLeaderboard(sortedList);
@@ -687,7 +687,7 @@ const Page = () => {
 
                 return (
                     <li key={index}>
-                        {displayRank} - {formatName(user.displayName)}
+                        {displayRank} - {formatName(user.name)}
                         <span className=' text-[42px]  font-bold'>{getAward(displayRank)}
                         </span> ~ {user.score}
                     </li>
