@@ -367,14 +367,14 @@ const Page = () => {
             };
         }, []);
 
-        console.log(leaderboard);
+        // console.log(leaderboard);
 
         // Get top 5 players
         const top5Leaderboard = leaderboard
             .sort((a, b) => b.score - a.score) // Sort in descending order by score
             .slice(0, 5); // Take only the top 5 players
 
-        console.log(top5Leaderboard);
+        // console.log(top5Leaderboard);
 
         const data = {
             labels: top5Leaderboard.map(user => formatName(user?.displayName)),
@@ -444,7 +444,7 @@ const Page = () => {
                     .sort((a, b) => b.score - a.score);
 
                 setLeaderboard(sortedList);
-                console.log(sortedList); // Debugging to check sorted list output
+                // console.log(sortedList); // Debugging to check sorted list output
 
             } catch (error) {
                 console.error("Error fetching leaderboard data:", error);
@@ -461,7 +461,7 @@ const Page = () => {
         // This code runs only on the client side
         const userDetails = localStorage.getItem("userDetails");
         const parsedUser = userDetails ? JSON.parse(userDetails) : null;
-        console.log(parsedUser);
+        // console.log(parsedUser);
 
         setUser(parsedUser);
     }, []);
@@ -469,11 +469,11 @@ const Page = () => {
     const saveScoreToFirebase = async (user, score) => {
         const userDetails = localStorage.getItem("userDetails");
         const parsedUser = userDetails ? JSON.parse(userDetails) : null;
-        console.log(parsedUser);
+        // console.log(parsedUser);
 
         setUser(parsedUser);
-        console.log(user);
-        console.log(localStorage.getItem("userDetails"));
+        // console.log(user);
+        // console.log(localStorage.getItem("userDetails"));
 
 
         if (!user) {
@@ -494,7 +494,7 @@ const Page = () => {
                 const userDocRef = doc(leaderboardCollection, existingUserDoc.id);
 
                 await updateDoc(userDocRef, { score });
-                console.log("Score updated successfully.");
+                // console.log("Score updated successfully.");
             } else {
                 await addDoc(leaderboardCollection, {
                     uid: user.uid,
@@ -502,7 +502,7 @@ const Page = () => {
                     email: user.email,
                     score: score
                 });
-                console.log("Score saved successfully.");
+                // console.log("Score saved successfully.");
             }
         } catch (error) {
             console.error("Error saving score:", error);
