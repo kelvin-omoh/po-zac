@@ -191,7 +191,7 @@ export default function Home() {
         <div id="built-by-inventors" className="flex self-center  items-center cursor-pointer gap-1 scale-90 absolute bottom-0 left-[45%] xs:left-[50%] md:ml-[4.5rem] mx-auto  "
           style={{ transform: "translate(-50%, -50%)" }}>
           <Image src={"/inventors-logo.svg"} priority width={35} height={35} alt="sdg-game-logo" className="" />
-          <p className="text-sm text-nowrap"> - Built by the inventors community ❤️</p>
+          <p className="text-sm text-nowrap"> - Built by the Inventors Community ❤️</p>
         </div>
       </div>
     </main>
