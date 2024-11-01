@@ -367,10 +367,14 @@ const Page = () => {
             };
         }, []);
 
+        console.log(leaderboard);
+
         // Get top 5 players
         const top5Leaderboard = leaderboard
             .sort((a, b) => b.score - a.score) // Sort in descending order by score
             .slice(0, 5); // Take only the top 5 players
+
+        console.log(top5Leaderboard);
 
         const data = {
             labels: top5Leaderboard.map(user => formatName(user?.displayName)),
@@ -847,7 +851,7 @@ const Page = () => {
                 </div>
 
                 <div id="game-content" className='flex flex-col pb-10 sm:pb-0 md:mr-4 xl:mr-0'>
-                    <div id="display-board" className='w-[95%] flex self-center flex-col gap-4 p-4 bg-white rounded-[20px] sm:p-8 lg:mt-4 lg:w-full'>
+                    <div id="display-board" className='w-[95%] flex self-center flex-col gap-4  bg-white rounded-[20px] p-8 lg:mt-4 lg:w-full'>
                         <div id="board-top-section" className='flex w-full gap-1 justify-between'>
                             <span className='leading-[29px] font-[500] text-sm text-nowrap sm:text-[24px] text-black'>Score: {score}</span>
                             <p className='font-[300] text-sm sm:text-[20px] text-nowrap leading-[24px]'>Select the correct words</p>
