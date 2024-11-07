@@ -642,7 +642,7 @@ const Page = () => {
                 },
                 y: {
                     grid: {
-                        color: '#66C227', // Light grid lines
+                        color: '#818180', // Light grid lines
                     },
                     ticks: {
                         color: 'rgba(255, 255, 255, 0.8)', // Light color for y-axis labels
