@@ -319,6 +319,239 @@ const gameData = [
         ],
         correct: ["Trust", "Innovate", "Motivate", "Empower"],
     },
+    {
+        "acronym": "LOST",
+        "options": [
+            "Learn",
+            "Observe",
+            "Strengthen",
+            "Trust",
+            "Look",
+            "Open",
+            "Strive",
+            "Transform"
+        ],
+        "correct": ["Learn", "Observe", "Strengthen", "Trust"]
+    },
+
+    {
+        "acronym": "STRESS",
+        "options": [
+            "Strength",
+            "Trust",
+            "Resilience",
+            "Empathy",
+            "Support",
+            "Simplicity",
+            "Service",
+            "Strive"
+        ],
+        "correct": ["Strength", "Trust", "Resilience", "Empathy", "Support", "Service"]
+    },
+    {
+        "acronym": "SHAME",
+        "options": [
+            "Self-Love",
+            "Honor",
+            "Authenticity",
+            "Mindfulness",
+            "Empathy",
+            "Support",
+            "Acceptance",
+            "Motivate"
+        ],
+        "correct": ["Self-Love", "Honor", "Authenticity", "Mindfulness", "Empathy"]
+    },
+    {
+        "acronym": "TIRED",
+        "options": [
+            "Trust",
+            "Inspire",
+            "Rest",
+            "Energize",
+            "Develop",
+            "Together",
+            "Reflect",
+            "Empower"
+        ],
+        "correct": ["Trust", "Inspire", "Rest", "Energize", "Develop"]
+    },
+    {
+        "acronym": "SAD",
+        "options": [
+            "Smile",
+            "Appreciate",
+            "Dream",
+            "Support",
+            "Accept",
+            "Develop",
+            "Achieve",
+            "Shine"
+        ],
+        "correct": ["Smile", "Appreciate", "Dream"]
+    },
+    {
+        "acronym": "JEALOUS",
+        "options": [
+            "Joyful",
+            "Energetic",
+            "Ambitious",
+            "Loving",
+            "Open",
+            "Unstoppable",
+            "Strong",
+            "Passionate",
+            "Focused",
+            "Inspired",
+            "Creative",
+            "Resilient"
+        ],
+        "correct": ["Joyful", "Energetic", "Ambitious", "Loving", "Open", "Unstoppable", "Strong"]
+    },
+    {
+        "acronym": "BREAK",
+        "options": [
+            "Brave",
+            "Resilient",
+            "Empowered",
+            "And",
+            "Knowledgeable",
+            "Innovative",
+            "Strong",
+            "Creative",
+            "Optimistic",
+            "Hopeful",
+            "Focused",
+            "Driven"
+        ],
+        "correct": ["Brave", "Resilient", "Empowered", "And", "Knowledgeable"]
+    },
+    {
+        "acronym": "FLOP",
+        "options": [
+            "Flourishing",
+            "Learning",
+            "Open-minded",
+            "Persistent",
+            "Strong",
+            "Creative",
+            "Resilient",
+            "Optimistic",
+            "Brave",
+            "Focused",
+            "Hopeful",
+            "Focused"
+        ],
+        "correct": ["Flourishing", "Learning", "Open-minded", "Persistent"]
+    },
+    {
+        "acronym": "WASTE",
+        "options": [
+            "Wise",
+            "Ambitious",
+            "Strong",
+            "Tenacious",
+            "Enthusiastic",
+            "Purposeful",
+            "Creative",
+            "Determined",
+            "Empowered",
+            "Optimistic",
+            "Hopeful",
+            "Focused"
+        ],
+        "correct": ["Wise", "Ambitious", "Strong", "Tenacious", "Enthusiastic"]
+    },
+    {
+        "acronym": "THREAT",
+        "options": [
+            "Tenacious",
+            "Hopeful",
+            "Resilient",
+            "Energized",
+            "Ambitious",
+            "Thriving",
+            "Creative",
+            "Focused",
+            "Driven",
+            "Determined",
+            "Innovative",
+            "Inspirational"
+        ],
+        "correct": ["Tenacious", "Hopeful", "Resilient", "Energized", "Ambitious", "Thriving"]
+    },
+    {
+        "acronym": "CURSE",
+        "options": [
+            "Courageous",
+            "Unstoppable",
+            "Resilient",
+            "Strong",
+            "Empowered",
+            "Optimistic",
+            "Creative",
+            "Focused",
+            "Driven",
+            "Brave",
+            "Ambitious",
+            "Hopeful"
+        ],
+        "correct": ["Courageous", "Unstoppable", "Resilient", "Strong", "Empowered"]
+    },
+    {
+        "acronym": "BLAME",
+        "options": [
+            "Brave",
+            "Loving",
+            "Ambitious",
+            "Motivated",
+            "Evolving",
+            "Creative",
+            "Resilient",
+            "Focused",
+            "Determined",
+            "Optimistic",
+            "Persistent",
+            "Passionate"
+        ],
+        "correct": ["Brave", "Loving", "Ambitious", "Motivated", "Evolving"]
+    },
+    {
+        "acronym": "ENVY",
+        "options": [
+            "Energized",
+            "Nourished",
+            "Visionary",
+            "Youthful",
+            "Optimistic",
+            "Creative",
+            "Determined",
+            "Resilient",
+            "Focused",
+            "Empowered",
+            "Hopeful",
+            "Ambitious"
+        ],
+        "correct": ["Energized", "Nourished", "Visionary", "Youthful"]
+    },
+    {
+        "acronym": "PANIC",
+        "options": [
+            "Purposeful",
+            "Adaptable",
+            "Nurturing",
+            "Inspiring",
+            "Compassionate",
+            "Resilient",
+            "Focused",
+            "Creative",
+            "Strong",
+            "Hopeful",
+            "Brave",
+            "Motivated"
+        ],
+        "correct": ["Purposeful", "Adaptable", "Nurturing", "Inspiring", "Compassionate"]
+    }
 ];
 
 
