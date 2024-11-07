@@ -609,11 +609,11 @@ const Page = () => {
 
         // console.log(top5Leaderboard);
         const leadershipColors = [
-            '#FFD700', // Gold for the top rank
-            '#C0C0C0', // Silver
-            '#CD7F32', // Bronze
-            '#1E90FF', // Blue
-            '#32CD32', // Green
+            '#FFD700', // Gold for the top rank (Yellow-Gold, typical of gold medals)
+            '#C0C0C0', // Silver for the second rank (Standard metallic silver)
+            '#B87333', // Bronze (A darker, more authentic bronze color)
+            '#4682B4', // Steel Blue (A slightly muted blue for a strong, serious tone)
+            '#228B22', // Forest Green (A deeper green for a grounded, mature rank)
         ];
         const data = {
             labels: top5Leaderboard.map(user => formatName(user?.displayName || user?.name)),
