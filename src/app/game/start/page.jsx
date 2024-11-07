@@ -375,33 +375,68 @@ const Page = () => {
             .slice(0, 5); // Take only the top 5 players
 
         // console.log(top5Leaderboard);
-
+        const leadershipColors = [
+            '#FFD700', // Gold for the top rank
+            '#C0C0C0', // Silver
+            '#CD7F32', // Bronze
+            '#1E90FF', // Blue
+            '#32CD32', // Green
+        ];
         const data = {
-            labels: top5Leaderboard.map(user => formatName(user?.displayName)),
+            labels: top5Leaderboard.map(user => formatName(user?.displayName || user?.name)),
             datasets: [
                 {
                     label: 'High Scores',
                     data: top5Leaderboard.map(user => user?.score),
-                    backgroundColor: top5Leaderboard.map(() => getRandomColor()), // Generate random colors for each user
-                    borderColor: 'rgba(255, 255, 255, 1)', // White border for the bars
+                    backgroundColor: top5Leaderboard.map((_, index) => leadershipColors[index] || '#808080'), // Map colors or default to gray
+                    borderColor: 'rgba(255, 255, 255, 0.8)', // White border for clarity
                     borderWidth: 1,
                 },
             ],
         };
+
         const options = {
             indexAxis: 'y', // Horizontal bar chart
             scales: {
                 x: {
                     beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.2)', // Light grid lines
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.8)', // Light color for x-axis labels
+                    },
+                },
+                y: {
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.8)', // Light color for y-axis labels
+                        font: {
+                            size: 12,
+                            weight: '500',
+                        },
+                    },
                 },
             },
             plugins: {
                 legend: {
-                    display: false, // Hide legend for simplicity
+                    display: true,
+                    labels: {
+                        color: 'rgba(255, 255, 255, 1)', // White legend text
+                        font: {
+                            size: 12,
+                            weight: 'bold',
+                        },
+                    },
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Dark tooltip background
+                    titleColor: 'rgba(255, 255, 255, 1)', // White title in tooltip
+                    bodyColor: 'rgba(255, 255, 255, 0.9)', // White body text in tooltip
+                    borderColor: 'rgba(255, 255, 255, 0.3)', // Subtle border for tooltip
+                    borderWidth: 1,
                 },
             },
         };
-
         return (
             <div className="w-full">
                 {isSmallScreen ? (
@@ -438,9 +473,11 @@ const Page = () => {
                 const scoresSnapshot = await getDocs(leaderboardCollection);
                 const scoresList = scoresSnapshot.docs.map(doc => doc.data());
 
+
+
                 // Filter and sort by score in descending order
                 const sortedList = scoresList
-                    .filter(user => user.name && user.score !== undefined)
+                    .filter(user => user.name || user.displayName && user.score !== undefined)
                     .sort((a, b) => b.score - a.score);
 
                 setLeaderboard(sortedList);
@@ -678,6 +715,7 @@ const Page = () => {
         let previousScore = null;
         let rankOffset = 0; // Offset to handle rank progression after ties
 
+
         return leaderboard
             .sort((a, b) => b.score - a.score) // Sort in descending order by score
             .slice(0, 5) // Take only the top 5 users
@@ -688,10 +726,9 @@ const Page = () => {
                     rankOffset++; // Increment rank offset if scores are tied
                 }
                 previousScore = user.score;
-
                 return (
                     <li key={index}>
-                        {index + 1} - {formatName(user.displayName)}
+                        {index + 1} - {formatName(user.displayName || user.name)}
                         <span className=' text-[42px]  font-bold'>{getAward(displayRank)}
                         </span> ~ {user.score}
                     </li>
@@ -760,13 +797,16 @@ const Page = () => {
                     </div>
                 ) : (
                     // Second Div (Highest Rank)
-                    <div className="bg-black flex flex-col gap-[1.5rem] rounded-md p-4 text-white">
+                    <div className="bg-[#313131cb] w-[90%] mx-auto  h-[90%] justify-center items-center flex flex-col gap-[1.5rem] rounded-md p-4 text-white">
+                        <p className=' text-start'>Total Number of Users : {300 + leaderboard.length}</p>
                         <h1 className="text-3xl font-extrabold underline text-center  pb-4">Top 5 Highest Rank</h1>
+
                         <ul>{renderLeaderboard(leaderboard)}</ul>
+
                         <LeaderboardChart leaderboard={leaderboard} />
                         <div id='restart' className='cursor-pointer self-center' onClick={resetGame}>
-                            <div className='p-3 mt-[.2rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
-                                <Image src={"/game/restart-icon.svg"} className='w-[34px] h-[41px]' priority width={50} height={50} alt='restart-icon' />
+                            <div className='p-3 mt-[.9rem] text-center self-center justify-center  w-[15rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
+                                <Image src={"/game/restart-icon.svg"} className='w-[24px] h-[21px]' priority width={50} height={50} alt='restart-icon' />
                                 Try again
                             </div>
                         </div>
