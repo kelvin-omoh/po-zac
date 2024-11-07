@@ -1031,8 +1031,8 @@ const Page = () => {
                     </div>
                 ) : (
                     // Second Div (Highest Rank)
-                    <div className="bg-[#313131cb] w-[90%] mx-auto  h-[90%] justify-center items-center flex flex-col gap-[1.5rem] rounded-md p-4 text-white">
-                        <p className=' text-start mt-[12px]'>Total Number of Users : <span className=' text-[#12dfee] font-semibold'>{300 + leaderboard.length}</span></p>
+                    <div className="bg-[#313131cc] backdrop-blur-sm w-[90%] mx-auto  h-[90%] relative justify-center items-center flex pt-[5.5rem] flex-col gap-[1.5rem] rounded-md p-4 text-white">
+                        <p className=' absolute top-3 left-9 text-start mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + leaderboard.length}</span></p>
                         <h1 className="text-3xl font-extrabold underline text-center  pb-4">Top 5 Highest Rank</h1>
 
                         <ul>{renderLeaderboard(leaderboard)}</ul>
