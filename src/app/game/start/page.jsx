@@ -999,11 +999,12 @@ const Page = () => {
     const [showLeaderboard, setShowLeaderboard] = useState(false);
 
     useEffect(() => {
+        setShowLeaderboard(false);
         if (gameStatus === "gameOver") {
             // Show leaderboard after 5 seconds
             const timer = setTimeout(() => {
                 setShowLeaderboard(true);
-            }, 5000);
+            }, 3500);
 
             // Clear the timer if the component unmounts or game status changes
             return () => clearTimeout(timer);
