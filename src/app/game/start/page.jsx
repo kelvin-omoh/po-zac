@@ -634,17 +634,20 @@ const Page = () => {
                 x: {
                     beginAtZero: true,
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.2)', // Light grid lines
+                        color: 'white', // Light grid lines
                     },
                     ticks: {
                         color: 'rgba(255, 255, 255, 0.8)', // Light color for x-axis labels
                     },
                 },
                 y: {
+                    grid: {
+                        color: '#66C227', // Light grid lines
+                    },
                     ticks: {
                         color: 'rgba(255, 255, 255, 0.8)', // Light color for y-axis labels
                         font: {
-                            size: isSmallScreen ? 10 : 20, // Dynamic font size based on screen size
+                            size: isSmallScreen ? 10 : 14, // Dynamic font size based on screen size
                             weight: '500',
                         },
                     },
@@ -656,7 +659,7 @@ const Page = () => {
                     labels: {
                         color: 'rgba(255, 255, 255, 1)', // White legend text
                         font: {
-                            size: isSmallScreen ? 10 : 20, // Dynamic font size for legend
+                            size: isSmallScreen ? 10 : 10, // Dynamic font size for legend
                             weight: 'bold',
                         },
                     },
@@ -1018,7 +1021,7 @@ const Page = () => {
             <Modal blur={false} show={true}>
                 {!showLeaderboard ? (
                     // First Div (GAME OVER Screen)
-                    <div className='p-2 flex flex-col items-center gap-4 px-8'>
+                    <div className='p-2 flex flex-col justify-center  items-center gap-4 px-8'>
                         <h1 className='text-white font-[800] text-[32px] leading-[39px]'>GAME OVER</h1>
                         <Image src={"/game/heartbreak-icon.svg"} alt='Heart break icon' width={83} height={80} />
                         <h3 className='text-2xl text-white font-bold'>Your Final score is: {score}</h3>
@@ -1032,8 +1035,8 @@ const Page = () => {
                     </div>
                 ) : (
                     // Second Div (Highest Rank)
-                    <div className="bg-[#313131cc] backdrop-blur-sm w-[90%] mx-auto md:min-h-screen h-[90%] relative justify-center items-center flex pt-[5.5rem] flex-col gap-[1.5rem] rounded-md p-4 text-white">
-                        <p className=' absolute top-3 left-9 text-start mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + leaderboard.length}</span></p>
+                    <div className="bg-[#313131cc] backdrop-blur-sm w-[90%] mx-auto md:min-h-screen h-[90%] relative justify-center items-center flex py-[1.1rem] flex-col gap-[1.5rem] rounded-md p-4 text-white">
+                        <p className='  top-3 left-9 text-start mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + leaderboard.length}</span></p>
                         <h1 className=" text-2xl md:text-3xl font-extrabold underline text-center  pb-4">Top 5 Highest Rank</h1>
 
                         <ul>{renderLeaderboard(leaderboard)}</ul>
@@ -1103,12 +1106,12 @@ const Page = () => {
     // }, [gameStatus, score]);
 
     return (
-        <div id='game-page' className='bg-blue-950 p-3 md:p-0 w-full min-h-screen md:h-screen'>
+        <div id='game-page' className='bg-blue-950 p-3 grid  md:p-0 w-full min-h-screen md:h-screen'>
             {showModal ? <Modal blur show={true}>
                 <h1 className='text-white text-4xl font-extrabold p-12'>{compliments[Math.floor(compliments.length * Math.random())]}</h1>
             </Modal> : ""}
 
-            <div id="game-content" className='bg-[url("/game/wood-bg.jpg")] rounded-2xl w-full h-full gap-0 md:pt-6 flex justify-center flex-col md:flex-row lg:gap-5'>
+            <div id="game-content" className='bg-[url("/game/wood-bg.jpg")] rounded-2xl w-full  gap-0 md:pt-6 flex justify-center flex-col md:flex-row lg:gap-5'>
 
                 <div id="sound-pause" className='flex gap-2 lg:gap-6 relative justify-center bottom-12 mt-20 md:pl-3 md:flex-col md:justify-start lg:pt-0'>
                     <div id="sound" onClick={toggleSound} className={`${!gameState.settings.sound ? "bg-red-500" : " bg-white"} scale-75 p-6  rounded-[20px] 
