@@ -16,7 +16,7 @@ const Page = () => {
                         <Image src={"/game/back-icon.svg"} className='w-[25px] h-[25px]' priority width={15} height={15} alt='menu-icon' />
                     </div>
 
-                    <h1 className='text-xl text-white sm:text-5xl font-[500] self-center col-start-2 items-center justify-center w-[10rem]  col-span-1 text-center'>Main Menu</h1>
+                    <h1 className='text-xl text-white sm:text-5xl font-[500] self-center col-start-2 items-center justify-center w-full md:w-[30rem]  col-span-1 text-center'>Main Menu</h1>
                 </header>
 
                 <div className='flex flex-col md:flex-row justify-center items-center gap-[20px] md:gap-24 pt-0 md:pt-12'>
