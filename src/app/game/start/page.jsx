@@ -727,7 +727,7 @@ const Page = () => {
                 }
                 previousScore = user.score;
                 return (
-                    <li key={index}>
+                    <li className='text-[18px]' key={index}>
                         {index + 1} - {formatName(user.displayName || user.name)}
                         <span className=' text-[42px]  font-bold'>{getAward(displayRank)}
                         </span> ~ {user.score}
@@ -798,7 +798,7 @@ const Page = () => {
                 ) : (
                     // Second Div (Highest Rank)
                     <div className="bg-[#313131cb] w-[90%] mx-auto  h-[90%] justify-center items-center flex flex-col gap-[1.5rem] rounded-md p-4 text-white">
-                        <p className=' text-start'>Total Number of Users : {300 + leaderboard.length}</p>
+                        <p className=' text-start mt-[12px]'>Total Number of Users : {300 + leaderboard.length}</p>
                         <h1 className="text-3xl font-extrabold underline text-center  pb-4">Top 5 Highest Rank</h1>
 
                         <ul>{renderLeaderboard(leaderboard)}</ul>
