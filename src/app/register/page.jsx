@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from '../../../firebaseConfig'
+import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
+import { app, auth } from '../../../firebaseConfig'
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Page = () => {
     const [formData, updateFormData] = useState({
@@ -25,6 +26,16 @@ const Page = () => {
 
     const provider = new GoogleAuthProvider();
     const router = useRouter();
+
+    const auth = getAuth(app);
+
+    const [user] = useAuthState(auth);
+
+    useEffect(() => {
+        if (user?.email !== "") {
+            router.push('/game')
+        }
+    }, [user])
 
     const Spinner = (
         <div role="status">
@@ -78,7 +89,6 @@ const Page = () => {
             updateSignupLoading(true);
             const formValid = isEmailValid && isNameValid && isPasswordValid;
 
-            e.currentTarget.disabled = formValid;
 
             const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
             const user = userCredential.user;
@@ -101,7 +111,6 @@ const Page = () => {
                 updateRegistrationError({ state: true, message: errorMessage.slice(9) });
 
             updateSignupLoading(false);
-            e.currentTarget.disabled = false;
         }
     };
 
@@ -139,15 +148,18 @@ const Page = () => {
 
 
     return (
-        <div className={`bg-green-50 max-w-full relative text-[#575A65] ${success ? "h-screen" : ""} sm:overflow-hidden`}>
-            <div className="bg-green-100 -z-10 w-[28rem] sm:-top-[25%] h-[180%] transform rotate-45 md:-top-[49%] md:-left-[20%] absolute hidden sm:block"></div>
-            <div className="bg-green-100 w-[35%] h-[180%] transform rotate-45 md:-right-[5%] absolute hidden sm:block"></div>
+        <div className={`bg-green-50 min-h-screen flex flex-col justify-center items-center max-w-full relative text-[#575A65] ${success ? " min-h-screen" : ""} sm:overflow-hidden`}>
+            <div className="bg-green-100  -z-10 w-[28rem] sm:-top-[25%] min-h-[100vh] transform rotate-45 md:-top-[49%] md:-left-[20%] absolute hidden sm:block"></div>
+            <div className="bg-green-100 w-[35%] min-h-full transform rotate-45 md:-right-[5%] absolute hidden sm:block"></div>
 
             <div id="content" className="flex flex-col z-50 relative max-w-screen">
                 {/* <Image src={"/logo-sdg-2.png"} priority width={150} height={150} alt="sdg-game-logo" className="z-10 self-center sm:self-start" /> */}
                 <div id="logos" className="z-10 flex justify-center w-full md:justify-between md:pr-6 lg:pr-10">
-                    <Image src={"/logo-sdg-2.png"} priority width={150} height={150} alt="sdg-game-logo" className="z-10 self-center sm:self-start" />
-                    <Image src={"/inventors-logo.svg"} priority width={60} height={60} alt="sdg-game-logo" className="z-10 hidden cursor-pointer self-center md:block" />
+
+                    <Image src={"/logo-sdg-2.jpeg"} priority width={100} height={100} alt="sdg-game-logo" className="z-10  sm:p-0 p-[1.3rem] mt-[2rem] rounded-full self-center sm:self-start" />
+                    <Image src={"/inventors-logo.svg"} priority width={60} height={60} alt="sdg-game-logo" className="z-10 hidden self-center cursor-pointer md:block" />
+
+
                 </div>
 
 
@@ -159,16 +171,13 @@ const Page = () => {
                     </div>
 
                     <input type="name" name='name' placeholder="Full Name" className="w-full py-3 border text-[#6B6B6B] border-gray-200 rounded-md px-4"
-                        onChange={(e) => { controlFormDataChanges(e); verifyName(e) }} onBlur={(e) => verifyName(e)} />
-                    <p className={`text-[12px] text-red-500 ${isNameValid ? "hidden" : ""}`}>Please enter a valid name</p>
+                        onChange={(e) => { controlFormDataChanges(e); verifyName(e) }} />
 
                     <input type="password" name='password' placeholder="Password" className="w-full py-3 border text-[#6B6B6B] border-gray-200 rounded-md px-4"
-                        onChange={(e) => { controlFormDataChanges(e); verifyPassword(e) }} onBlur={(e) => verifyPassword(e)} />
-                    <p className={`text-[12px] text-red-500 ${isPasswordValid ? "hidden" : ""}`}>Enter at least 5 characters</p>
+                        onChange={(e) => { controlFormDataChanges(e); verifyPassword(e) }} />
 
                     <input type="email" name="email" placeholder="Email Address" className="w-full py-3 border text-[#6B6B6B] border-gray-200 rounded-md px-4"
-                        onChange={(e) => { controlFormDataChanges(e); verifyEmail(e) }} onBlur={(e) => verifyEmail(e)} />
-                    <p className={`text-[12px] text-red-500 ${isEmailValid ? "hidden" : ""}`}>Please enter a valid email address</p>
+                        onChange={(e) => { controlFormDataChanges(e); verifyEmail(e) }} />
 
                     <button className="text-white bg-[#00B598] cursor-pointer py-3 px-auto rounded ease-transition hover:bg-[#007965] disabled:opacity-50"
                         onClick={(e) => handleFormSubmission(e)}>

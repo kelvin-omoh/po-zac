@@ -575,6 +575,7 @@ const Page = () => {
 
     const { currentQuestion, score, lives, gameStatus, userAnswers, settings, currentLevel } = gameState;
     const [leaderboard, setLeaderboard] = useState([]);
+    const [numberOfPlayers, setnumberOfPlayers] = useState(0);
     const currentData = gameData[currentLevel]; // Use gameData for currentLevel
 
     const getRandomColor = () => {
@@ -709,6 +710,8 @@ const Page = () => {
             try {
                 const scoresSnapshot = await getDocs(leaderboardCollection);
                 const scoresList = scoresSnapshot.docs.map(doc => doc.data());
+
+                setnumberOfPlayers(scoresList.length)
 
 
 
@@ -1036,7 +1039,7 @@ const Page = () => {
                 ) : (
                     // Second Div (Highest Rank)
                     <div className="bg-[#313131cc] backdrop-blur-sm w-[90%] mx-auto md:min-h-screen h-[90%] relative justify-center items-center flex py-[1.1rem] flex-col gap-[1.5rem] rounded-md p-4 text-white">
-                        <p className='  top-3 left-9 text-start mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + leaderboard.length}</span></p>
+                        <p className='  top-3 left-9 text-start mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + numberOfPlayers}</span></p>
                         <h1 className=" text-2xl md:text-3xl font-extrabold underline text-center  pb-4">Top 5 Highest Rank</h1>
 
                         <ul>{renderLeaderboard(leaderboard)}</ul>

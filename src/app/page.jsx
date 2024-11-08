@@ -4,9 +4,10 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import CustomCheckbox from "../components/CustomCheckBox/CustomCheckBox";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { app, auth } from "../../firebaseConfig";
 import { GoogleAuthProvider } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 // The home is the login page.
 export default function Home() {
@@ -127,6 +128,17 @@ export default function Home() {
 
       }).finally(() => updateLoginLoading1(false));
   }
+
+
+  const auth = getAuth(app);
+
+  const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    if (user?.email !== "") {
+      router.push('/game')
+    }
+  }, [user])
 
   return (
     <main className="bg-green-50 h-screen  max-w-screen relative text-[#575A65] sm:overflow-hidden">
