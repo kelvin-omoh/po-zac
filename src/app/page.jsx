@@ -1,11 +1,11 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import CustomCheckbox from "../components/CustomCheckBox/CustomCheckBox";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { app, auth } from "../../firebaseConfig";
+import { app } from "../../firebaseConfig";
 import { GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 

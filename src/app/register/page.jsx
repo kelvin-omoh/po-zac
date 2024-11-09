@@ -156,8 +156,8 @@ const Page = () => {
                 {/* <Image src={"/logo-sdg-2.png"} priority width={150} height={150} alt="sdg-game-logo" className="z-10 self-center sm:self-start" /> */}
                 <div id="logos" className="z-10 flex justify-center w-full md:justify-between md:pr-6 lg:pr-10">
 
-                    <Image src={"/logo-sdg-2.jpeg"} priority width={100} height={100} alt="sdg-game-logo" className="z-10  sm:p-0 p-[1.3rem] mt-[2rem] rounded-full self-center sm:self-start" />
-                    <Image src={"/inventors-logo.svg"} priority width={60} height={60} alt="sdg-game-logo" className="z-10 hidden self-center cursor-pointer md:block" />
+                    <Image src={"/logo-sdg-2.jpeg"} priority width={100} height={100} alt="sdg-game-logo" className="z-10 flex justify-center items-center size-[80px] mx-auto   sm:p-0 p-[1.3rem] mt-[2rem] mb-[2rem] rounded-full self-center sm:self-start" />
+                    {/* <Image src={"/inventors-logo.svg"} priority width={60} height={60} alt="sdg-game-logo" className="z-10 hidden self-center cursor-pointer md:block" /> */}
 
 
                 </div>
