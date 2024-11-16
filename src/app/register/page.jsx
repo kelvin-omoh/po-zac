@@ -31,8 +31,9 @@ const Page = () => {
 
     const [user] = useAuthState(auth);
 
+
     useEffect(() => {
-        if (user?.email !== "") {
+        if (user?.email) {
             router.push('/game')
         }
     }, [user])
