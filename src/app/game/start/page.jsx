@@ -557,11 +557,24 @@ const gameData = [
 
 
 const Page = () => {
-
-    const compliments = ["Keep going!! 💯", "You're almost there!! 💪", "Just WOW!!! 🔥", "const's go!! 👻", "Keep it up!!! 👏", "Incredible!! 🔥", "Amazing work!! ✨", "Super speed!! 😎"];
+    const compliments = [
+        "Keep going!! 💯", 
+        "Ohhh Boy!! 😤", 
+        "Too sharp!!! 💯", 
+        "Out of this world! 👽",
+        "Superstar!!! ⭐", 
+        "Don't playyyyy!! 🤩", 
+        "You're almost there!! 💪", 
+        "Just WOW!!! 🔥", 
+        "Let's go!! 👻", 
+        "Keep it up!!! 👏", 
+        "Incredible!! 🔥", 
+        "Amazing work!! ✨", 
+        "Super speed!! 😎"
+    ];
     const router = useRouter();
     const optionsRef = useRef(null);
-    const [showModal, updateShowModal] = useState(false);
+    const [showComplimentModal, updateShowComplimentModal] = useState(false);
     // const [user, loading, error] = useAuthState(auth, options);
     const [gameState, setGameState] = useState({
         lives: 3,
@@ -862,8 +875,8 @@ const Page = () => {
     };
 
     const temporarilyShowModal = () => {
-        updateShowModal(true);
-        setTimeout(() => updateShowModal(false), 1500);
+        updateShowComplimentModal(true);
+        setTimeout(() => updateShowComplimentModal(false), 1500);
     }
 
     function shuffleArray(array) {
@@ -906,9 +919,6 @@ const Page = () => {
         setGameState(prevState => ({ ...prevState, settings: { ...prevState.settings, sound: !prevState.settings.sound } }));
     };
 
-
-
-
     if (!currentData) {
         router.push("/game/menu");
     }
@@ -918,9 +928,6 @@ const Page = () => {
             saveScoreToFirebase(user, score);
         }
     }, [gameStatus, score]);
-
-
-
 
 
     useEffect(() => {
@@ -1110,8 +1117,8 @@ const Page = () => {
 
     return (
         <div id='game-page' className='bg-blue-950 p-3 grid  md:p-0 w-full min-h-screen md:h-screen'>
-            {showModal ? <Modal blur show={true}>
-                <h1 className='text-white text-4xl font-extrabold p-12'>{compliments[Math.floor(compliments.length * Math.random())]}</h1>
+            {showComplimentModal ? <Modal blur show={true}>
+                <h1 className='text-white text-4xl text-center font-extrabold p-12'>{compliments[Math.floor(compliments.length * Math.random())]}</h1>
             </Modal> : ""}
 
             <div id="game-content" className='bg-[url("/game/wood-bg.jpg")] rounded-2xl w-full  gap-0 md:pt-6 flex justify-center flex-col md:flex-row lg:gap-5'>
