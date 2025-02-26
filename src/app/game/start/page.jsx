@@ -689,7 +689,7 @@ const Page = () => {
         };
 
         return (
-            <div className="w-full ">
+            <div className="w-full hidden lg:block">
                 {isSmallScreen ? (
                     // Render Pie chart for small screens
                     <Bar data={data} options={options} />
@@ -974,9 +974,9 @@ const Page = () => {
                 }
                 previousScore = user.score;
                 return (
-                    <li className=' text-[16px] md:text-[18px]' key={index}>
+                    <li className=' text-white text-nowrap py-2 text-[16px] md:text-[18px]' key={index}>
                         {index + 1} - {formatName(user.displayName || user.name)}
-                        <span className=' text-[42px]  font-bold'>{getAward(displayRank)}
+                        <span className='text-sm  font-bold lg:text-[35px]'>{getAward(displayRank)}
                         </span> ~ {user.score}
                     </li>
                 );
@@ -1028,39 +1028,45 @@ const Page = () => {
     if (gameStatus === "gameOver") {
         // saveScoreToFirebase(score);
         return (
-            <Modal blur={false} show={true}>
+            // <Modal blur={false} show={true}>
+            <div className='w-screen absolute min-h-[100vh] max-w-screen z-[500] top-0 left-0 p-8 flex justify-center items-center bg-blue-950 backdrop-blur-[15px] cursor-pointer'>
                 {!showLeaderboard ? (
                     // First Div (GAME OVER Screen)
-                    <div className='p-2 flex flex-col justify-center  items-center gap-4 px-8'>
-                        <h1 className='text-white font-[800] text-[32px] leading-[39px]'>GAME OVER</h1>
-                        <Image src={"/game/heartbreak-icon.svg"} alt='Heart break icon' width={83} height={80} />
-                        <h3 className='text-2xl text-white font-bold'>Your Final score is: {score}</h3>
-                        <div id="buttons" className='flex gap-6 py-2 pb-8'>
-                            {/* <div id='restart' className='cursor-pointer' onClick={resetGame}>
-                                <div className='p-6 bg-black rounded-lg shadow-xl'>
-                                    <Image src={"/game/restart-icon.svg"} className='w-[34px] h-[41px]' priority width={50} height={50} alt='restart-icon' />
-                                </div>
-                            </div> */}
+                    <div className='bg-[url("/game/wood-bg.jpg")] md:h-[100%] md:w-[40%]  w-full p-4 rounded-2xl mx-4 sm:mx-0 sm:p-8 cursor-default'>
+                        <div className='p-2 flex flex-col justify-center  items-center gap-4 px-8'>
+                            <h1 className='text-white font-[800] text-[32px] leading-[39px]'>GAME OVER</h1>
+                            <Image src={"/game/heartbreak-icon.svg"} alt='Heart break icon' width={83} height={80} />
+                            <h3 className='text-2xl text-white font-bold'>Your Final score is: {score}</h3>
+                            <div id="buttons" className='flex gap-6 py-2 pb-8'>
+                                {/* <div id='restart' className='cursor-pointer' onClick={resetGame}>
+                                    <div className='p-6 bg-black rounded-lg shadow-xl'>
+                                        <Image src={"/game/restart-icon.svg"} className='w-[34px] h-[41px]' priority width={50} height={50} alt='restart-icon' />
+                                    </div>
+                                </div> */}
+                            </div>
                         </div>
                     </div>
                 ) : (
                     // Second Div (Highest Rank)
-                    <div className="bg-[#313131cc] backdrop-blur-sm w-[90%] mx-auto md:min-h-screen h-[90%] relative justify-center items-center flex py-[1.1rem] flex-col gap-[1.5rem] rounded-md p-4 text-white">
-                        <p className='  top-3 left-9 text-start mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + numberOfPlayers}</span></p>
-                        <h1 className=" text-2xl md:text-3xl font-extrabold underline text-center  pb-4">Top 5 Highest Rank</h1>
+                    <div className='bg-[url("/game/wood-bg.jpg")] max-w-screen p-4 rounded-lg sm:p-8 '>
+                        <div className="bg-[#313131cc] w-[70vw] rounded backdrop-blur-sm flex flex-col p-8 max-h-screen">
+                            <p className='text-white top-3 left-9 text-center mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + numberOfPlayers}</span></p>
+                            <h1 className=" text-2xl md:text-3xl font-extrabold underline text-center font-arsenal text-white  pb-4">THE BIG 5 (RANKING)</h1>
 
-                        <ul>{renderLeaderboard(leaderboard)}</ul>
-
-                        <LeaderboardChart leaderboard={leaderboard} />
-                        <div id='restart' className='cursor-pointer self-center' onClick={resetGame}>
-                            <div className='p-3 mt-[.9rem] text-center self-center justify-center  w-[15rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
-                                <Image src={"/game/restart-icon.svg"} className='w-[24px] h-[21px]' priority width={50} height={50} alt='restart-icon' />
-                                Try again
+                            <div id="leaderboard-list-and-chart-wrapper" className='flex justify-center'>
+                                <ul className='basis-[80%] text-sm lg:basis-[65%]'>{renderLeaderboard(leaderboard)}</ul>
+                                <LeaderboardChart leaderboard={leaderboard} />
+                            </div>
+                            <div id='restart' className='cursor-pointer self-center' onClick={resetGame}>
+                                <div className='p-3 mt-[.9rem] text-center self-center justify-center  w-[15rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
+                                    <Image src={"/game/restart-icon.svg"} className='w-[24px] h-[21px]' priority width={50} height={50} alt='restart-icon' />
+                                    Try again
+                                </div>
                             </div>
                         </div>
                     </div>
                 )}
-            </Modal>
+            </div>
         );
     }
 
