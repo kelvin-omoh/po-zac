@@ -19,7 +19,7 @@ const Page = () => {
                     <h1 className='text-xl text-white text-nowrap sm:text-5xl font-[500] self-center col-start-2 items-center justify-center w-[7rem] sm:font-extrabold md:w-[30rem]  col-span-1 text-center'>Main Menu</h1>
                 </header>
 
-                <div className='flex flex-col md:flex-row justify-center items-center gap-[20px] md:gap-24 pt-0 md:pt-12'>
+                <div className='flex flex-col md:flex-row justify-center items-center font-bold font-arsenal gap-[20px] md:gap-24 pt-0 md:pt-12'>
                     <Link href={"/game/start"} id='menu-item' className='menu-item'>
                         <div className='p-6 bg-black rounded-lg'><Image src={"/game/play-icon.svg"} className='w-[30px] h-[30px]' priority width={30} height={30} alt='menu-icon' /></div>
                         <p>Start Game</p>

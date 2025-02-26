@@ -9,6 +9,9 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        arsenal: ["Arsenal SC", "serif"]
+      }
     },
   },
   plugins: [],
