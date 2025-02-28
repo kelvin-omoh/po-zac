@@ -221,12 +221,9 @@ const Page = () => {
     const saveScoreToFirebase = async (user, score) => {
         const userDetails = localStorage.getItem("userDetails");
         const parsedUser = userDetails ? JSON.parse(userDetails) : null;
-        // console.log(parsedUser);
+        // console.log(parsedUser, userDetails);
 
         setUser(parsedUser);
-        // console.log(user);
-        // console.log(localStorage.getItem("userDetails"));
-
 
         if (!user) {
             console.error("User not found. Cannot save score.");
@@ -244,9 +241,13 @@ const Page = () => {
             if (!querySnapshot.empty) {
                 const existingUserDoc = querySnapshot.docs[0];
                 const userDocRef = doc(leaderboardCollection, existingUserDoc.id);
+                const existingScore = existingUserDoc._document.data.value.mapValue.fields.score.integerValue;
 
-                await updateDoc(userDocRef, { score });
-                // console.log("Score updated successfully.");
+                // Only update records if previous / existing record is less than new record
+                if (existingScore < score) {
+                    await updateDoc(userDocRef, { score });
+                    console.log("Score updated successfully.");
+                }
             } else {
                 await addDoc(leaderboardCollection, {
                     uid: user.uid,
@@ -254,7 +255,7 @@ const Page = () => {
                     email: user.email,
                     score: score
                 });
-                // console.log("Score saved successfully.");
+                console.log("Score saved successfully.");
             }
         } catch (error) {
             console.error("Error saving score:", error);
