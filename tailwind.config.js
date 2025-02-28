@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+// const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -11,6 +13,10 @@ module.exports = {
       },
       fontFamily: {
         arsenal: ["Arsenal SC", "serif"]
+      },
+      screens: {
+        xs: "340px",
+        // ...defaultTheme.screens,
       }
     },
   },

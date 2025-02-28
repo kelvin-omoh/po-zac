@@ -588,12 +588,12 @@ const Page = () => {
     // }, [gameStatus, score]);
 
     return (
-        <div id='game-page' className='bg-blue-950 p-3 grid  md:p-0 w-full min-h-screen md:h-screen'>
+        <div id='game-page' className='bg-blue-950 p-3 grid max-w-screen  md:p-0 w-full min-h-screen md:h-screen'>
             {showComplimentModal ? <Modal blur show={true}>
                 <h1 className='text-white text-4xl text-center font-extrabold p-12'>{compliments[Math.floor(compliments.length * Math.random())]}</h1>
             </Modal> : ""}
 
-            <div id="game-content" className='bg-[url("/game/wood-bg.jpg")] rounded-2xl w-full  gap-0 md:pt-6 flex justify-center flex-col md:flex-row lg:gap-5'>
+            <div id="game-content" className='bg-[url("/game/wood-bg.jpg")] max-w-screen rounded-2xl w-full  gap-0 md:pt-6 flex justify-center flex-col md:flex-row lg:gap-5'>
 
                 <div id="sound-pause" className='flex gap-2 lg:gap-6 relative justify-center bottom-12 mt-20 md:pl-3 md:flex-col md:justify-start lg:pt-0'>
                     <div id="sound" onClick={toggleSound} className={`${!gameState.settings.sound ? "bg-red-500" : " bg-white"} scale-75 p-6  rounded-[20px] 
@@ -610,9 +610,9 @@ const Page = () => {
                     </div>
                 </div>
 
-                <div id="game-content" className='flex flex-col pb-10 sm:pb-0 md:mr-4 xl:mr-0'>
+                <div id="details-options" className='flex flex-col pb-10 max-w-screen sm:pb-0 md:mr-4 xl:mr-0'>
                     <div id="display-board" className='w-[95%] flex self-center flex-col gap-4  bg-white rounded-[20px] p-8 lg:mt-4 lg:w-full'>
-                        <div id="board-top-section" className='flex w-full gap-1 justify-between'>
+                        <div id="board-top-section" className='flex flex-col w-full gap-1 justify-between items-center xs:flex-row xs:items-start'>
                             <span className='leading-[29px] font-[500] text-sm text-nowrap sm:text-[24px] text-black'>Score: {score}</span>
                             <p className='font-[300] text-sm sm:text-[20px] text-nowrap leading-[24px]'>Select the correct words</p>
                             <div id="lives" className='flex gap-1 self-center'>
