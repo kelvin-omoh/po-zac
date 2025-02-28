@@ -4,7 +4,7 @@ import Modal from '../../components/Modal/Modal';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Howl } from "howler";
-import {gameData, compliments} from "./utils";
+import {gameAcronyms, compliments} from "./utils";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
 import { HiMiniSpeakerXMark } from "react-icons/hi2";
@@ -45,6 +45,7 @@ const Page = () => {
         currentLevel: 0,
         settings: { sound: true, darkMode: false }
     });
+    const [gameData, updateGameData] = useState(gameAcronyms);
 
     const { currentQuestion, score, lives, gameStatus, userAnswers, settings, currentLevel } = gameState;
     const [leaderboard, setLeaderboard] = useState([]);
@@ -179,14 +180,15 @@ const Page = () => {
     };
 
     useEffect(() => {
+        // randomize the gateData // comment this out for easier testing
+        updateGameData(shuffleArray(gameAcronyms));
+        
         const fetchLeaderboard = async () => {
             try {
                 const scoresSnapshot = await getDocs(leaderboardCollection);
                 const scoresList = scoresSnapshot.docs.map(doc => doc.data());
 
                 setnumberOfPlayers(scoresList.length)
-
-
 
                 // Filter and sort by score in descending order
                 const sortedList = scoresList
@@ -373,6 +375,10 @@ const Page = () => {
             gameStatus: "playing",
             settings: { ...gameState.settings }
         });
+
+        // shuffle all the acronyms for each game session
+        const previousGameData = [...gameData];
+        updateGameData(shuffleArray(previousGameData));        
     };
 
     const toggleSound = () => {

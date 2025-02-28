@@ -14,7 +14,7 @@ export const compliments = [
     "Super speed!! 😎"
 ];
 
-export const gameData = [
+export const gameAcronyms = [
     {
         acronym: "FAIL",
         options: [
