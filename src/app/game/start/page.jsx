@@ -4,6 +4,7 @@ import Modal from '../../components/Modal/Modal';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Howl } from "howler";
+import {gameAcronyms, compliments} from "./utils";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
 import { HiMiniSpeakerXMark } from "react-icons/hi2";
@@ -30,538 +31,10 @@ ChartJS.register(ArcElement, Tooltip, Legend, Title, CategoryScale, LinearScale)
 // Register components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const gameData = [
-    {
-        acronym: "FAIL",
-        options: [
-            "Forget",
-            "Forgive",
-            "Failure",
-            "Attempt",
-            "In",
-            "Learning",
-            "First",
-            "Impact",
-            "Launch",
-            "Forward",
-            "Aim",
-            "Improve",
-        ],
-        correct: ["First", "Attempt", "In", "Learning"],
-    },
-    {
-        acronym: "MAD",
-        options: [
-            "Make",
-            "Move",
-            "Motivate",
-            "Alter",
-            "Difference",
-            "A",
-            "Achieve",
-            "Aspire",
-            "Act",
-            "Mind",
-            "Mark",
-            "Develop",
-        ],
-        correct: ["Make", "A", "Difference"],
-    },
-    {
-        acronym: "HARD",
-        options: [
-            "Ambitious",
-            "Driven",
-            "Hopeful",
-            "Resilient",
-            "Reinvent",
-            "Dream",
-            "Dare",
-            "Diligent",
-            "Adapt",
-            "Rise",
-            "Heart",
-            "Action",
-        ],
-        correct: ["Hopeful", "Ambitious", "Resilient", "Driven"],
-    },
-    {
-        acronym: "FEAR",
-        options: [
-            "Face",
-            "And",
-            "Rise",
-            "Expect",
-            "Revive",
-            "Accept",
-            "Everything",
-            "Adapt",
-            "Fail",
-            "Action",
-            "Endure",
-            "Realize",
-        ],
-        correct: ["Face", "Everything", "And", "Rise"],
-    },
-    {
-        acronym: "PAIN",
-        options: [
-            "Positive",
-            "Attitude",
-            "Increases",
-            "Awareness",
-            "Inspire",
-            "Now",
-            "Navigate",
-            "Apply",
-            "Integrity",
-            "Persistence",
-            "Allow",
-            "Impact",
-        ],
-        correct: ["Positive", "Attitude", "Increases", "Now"],
-    },
-    {
-        acronym: "RAGE",
-        options: [
-            "Rise",
-            "Above",
-            "Revive",
-            "Aspire",
-            "Generate",
-            "Grow",
-            "Empower",
-            "Achieve",
-            "Everyday",
-            "Adapt",
-            "Guide",
-            "Explore",
-        ],
-        correct: ["Rise", "Above", "Grow", "Everyday"],
-    },
-    {
-        acronym: "SICK",
-        options: [
-            "Strong",
-            "Sustain",
-            "Innovate",
-            "Change",
-            "Inspired",
-            "Courageous",
-            "Keen",
-            "Knowledge",
-            "Support",
-            "Care",
-            "See",
-            "Kind",
-        ],
-        correct: ["Strong", "Inspired", "Courageous", "Kind"],
-    },
-    {
-        acronym: "LOSER",
-        options: [
-            "Onward",
-            "Every",
-            "Result",
-            "Resilience",
-            "Learning",
-            "Opportunity",
-            "Explore",
-            "Succeed",
-            "Open",
-            "Effort",
-            "Rise",
-            "Risk",
-        ],
-        correct: ["Learning", "Opportunity", "Succeed", "Effort", "Result"],
-    },
-    {
-        acronym: "WIMP",
-        options: [
-            "Mature",
-            "Wise",
-            "Positive",
-            "Willing",
-            "Inspire",
-            "Intelligent",
-            "Motivated",
-            "Persevere",
-            "Will",
-            "Influence",
-            "Perfect",
-            "Master",
-        ],
-        correct: ["Wise", "Intelligent", "Motivated", "Persevere"],
-    },
-    {
-        acronym: "GUILT",
-        options: [
-            "Great",
-            "In",
-            "Learning",
-            "Generate",
-            "Uplift",
-            "Understanding",
-            "Inspire",
-            "Transform",
-            "Grow",
-            "Unify",
-            "Lead",
-            "Improve",
-        ],
-        correct: ["Great", "Understanding", "Inspire", "Lead", "Transform"],
-    },
-    {
-        acronym: "CRY",
-        options: [
-            "Courageous",
-            "Resilient",
-            "Youth",
-            "Create",
-            "Reflect",
-            "Yield",
-            "Reach",
-            "Yearn",
-            "Root",
-            "Year",
-            "Change",
-            "Connect",
-        ],
-        correct: ["Courageous", "Resilient", "Yearn"],
-    },
-    {
-        acronym: "STUCK",
-        options: [
-            "Tenacious",
-            "Unique",
-            "Courageous",
-            "Kind",
-            "Seek",
-            "Strong",
-            "Understand",
-            "Communicate",
-            "Support",
-            "Teach",
-            "Stand",
-            "Trust",
-        ],
-        correct: ["Strong", "Tenacious", "Unique", "Courageous", "Kind"],
-    },
-    {
-        acronym: "BOLD",
-        options: [
-            "Brave",
-            "Optimistic",
-            "Lively",
-            "Determined",
-            "Bold",
-            "Open",
-            "Learn",
-            "Drive",
-            "Believe",
-            "Order",
-            "Lift",
-            "Organize",
-        ],
-        correct: ["Brave", "Optimistic", "Lively", "Determined"],
-    },
-    {
-        acronym: "RISK",
-        options: [
-            "Strong",
-            "Knowledgeable",
-            "Reflect",
-            "Innovate",
-            "Strategize",
-            "Keep",
-            "Resilient",
-            "Invest",
-            "Safe",
-            "Inspired",
-            "Insight",
-            "Kick",
-        ],
-        correct: ["Resilient", "Inspired", "Strong", "Knowledgeable"],
-    },
-    {
-        acronym: "LOVE",
-        options: [
-            "Open",
-            "Learn",
-            "Everyone",
-            "Lend",
-            "Observe",
-            "Vibe",
-            "Lift",
-            "Offer",
-            "Endure",
-            "Look",
-            "Value",
-            "Express",
-        ],
-        correct: ["Learn", "Open", "Value", "Everyone"],
-    },
-    {
-        acronym: "TIME",
-        options: [
-            "Innovate",
-            "Tackle",
-            "Inspire",
-            "Manage",
-            "Empower",
-            "Team",
-            "Integrity",
-            "Move",
-            "Motivate",
-            "Think",
-            "Meet",
-            "Trust",
-        ],
-        correct: ["Trust", "Innovate", "Motivate", "Empower"],
-    },
-    {
-        "acronym": "LOST",
-        "options": [
-            "Learn",
-            "Observe",
-            "Strengthen",
-            "Trust",
-            "Look",
-            "Open",
-            "Strive",
-            "Transform"
-        ],
-        "correct": ["Learn", "Observe", "Strengthen", "Trust"]
-    },
-
-    {
-        "acronym": "STRESS",
-        "options": [
-            "Strength",
-            "Trust",
-            "Resilience",
-            "Empathy",
-            "Support",
-            "Simplicity",
-            "Service",
-            "Strive"
-        ],
-        "correct": ["Strength", "Trust", "Resilience", "Empathy", "Support", "Service"]
-    },
-    {
-        "acronym": "SHAME",
-        "options": [
-            "Self-Love",
-            "Honor",
-            "Authenticity",
-            "Mindfulness",
-            "Empathy",
-            "Support",
-            "Acceptance",
-            "Motivate"
-        ],
-        "correct": ["Self-Love", "Honor", "Authenticity", "Mindfulness", "Empathy"]
-    },
-    {
-        "acronym": "TIRED",
-        "options": [
-            "Trust",
-            "Inspire",
-            "Rest",
-            "Energize",
-            "Develop",
-            "Together",
-            "Reflect",
-            "Empower"
-        ],
-        "correct": ["Trust", "Inspire", "Rest", "Energize", "Develop"]
-    },
-    {
-        "acronym": "SAD",
-        "options": [
-            "Smile",
-            "Appreciate",
-            "Dream",
-            "Support",
-            "Accept",
-            "Develop",
-            "Achieve",
-            "Shine"
-        ],
-        "correct": ["Smile", "Appreciate", "Dream"]
-    },
-    {
-        "acronym": "JEALOUS",
-        "options": [
-            "Joyful",
-            "Energetic",
-            "Ambitious",
-            "Loving",
-            "Open",
-            "Unstoppable",
-            "Strong",
-            "Passionate",
-            "Focused",
-            "Inspired",
-            "Creative",
-            "Resilient"
-        ],
-        "correct": ["Joyful", "Energetic", "Ambitious", "Loving", "Open", "Unstoppable", "Strong"]
-    },
-    {
-        "acronym": "BREAK",
-        "options": [
-            "Brave",
-            "Resilient",
-            "Empowered",
-            "And",
-            "Knowledgeable",
-            "Innovative",
-            "Strong",
-            "Creative",
-            "Optimistic",
-            "Hopeful",
-            "Focused",
-            "Driven"
-        ],
-        "correct": ["Brave", "Resilient", "Empowered", "And", "Knowledgeable"]
-    },
-    {
-        "acronym": "FLOP",
-        "options": [
-            "Flourishing",
-            "Learning",
-            "Open-minded",
-            "Persistent",
-            "Strong",
-            "Creative",
-            "Resilient",
-            "Optimistic",
-            "Brave",
-            "Focused",
-            "Hopeful",
-            "Focused"
-        ],
-        "correct": ["Flourishing", "Learning", "Open-minded", "Persistent"]
-    },
-    {
-        "acronym": "WASTE",
-        "options": [
-            "Wise",
-            "Ambitious",
-            "Strong",
-            "Tenacious",
-            "Enthusiastic",
-            "Purposeful",
-            "Creative",
-            "Determined",
-            "Empowered",
-            "Optimistic",
-            "Hopeful",
-            "Focused"
-        ],
-        "correct": ["Wise", "Ambitious", "Strong", "Tenacious", "Enthusiastic"]
-    },
-    {
-        "acronym": "THREAT",
-        "options": [
-            "Tenacious",
-            "Hopeful",
-            "Resilient",
-            "Energized",
-            "Ambitious",
-            "Thriving",
-            "Creative",
-            "Focused",
-            "Driven",
-            "Determined",
-            "Innovative",
-            "Inspirational"
-        ],
-        "correct": ["Tenacious", "Hopeful", "Resilient", "Energized", "Ambitious", "Thriving"]
-    },
-    {
-        "acronym": "CURSE",
-        "options": [
-            "Courageous",
-            "Unstoppable",
-            "Resilient",
-            "Strong",
-            "Empowered",
-            "Optimistic",
-            "Creative",
-            "Focused",
-            "Driven",
-            "Brave",
-            "Ambitious",
-            "Hopeful"
-        ],
-        "correct": ["Courageous", "Unstoppable", "Resilient", "Strong", "Empowered"]
-    },
-    {
-        "acronym": "BLAME",
-        "options": [
-            "Brave",
-            "Loving",
-            "Ambitious",
-            "Motivated",
-            "Evolving",
-            "Creative",
-            "Resilient",
-            "Focused",
-            "Determined",
-            "Optimistic",
-            "Persistent",
-            "Passionate"
-        ],
-        "correct": ["Brave", "Loving", "Ambitious", "Motivated", "Evolving"]
-    },
-    {
-        "acronym": "ENVY",
-        "options": [
-            "Energized",
-            "Nourished",
-            "Visionary",
-            "Youthful",
-            "Optimistic",
-            "Creative",
-            "Determined",
-            "Resilient",
-            "Focused",
-            "Empowered",
-            "Hopeful",
-            "Ambitious"
-        ],
-        "correct": ["Energized", "Nourished", "Visionary", "Youthful"]
-    },
-    {
-        "acronym": "PANIC",
-        "options": [
-            "Purposeful",
-            "Adaptable",
-            "Nurturing",
-            "Inspiring",
-            "Compassionate",
-            "Resilient",
-            "Focused",
-            "Creative",
-            "Strong",
-            "Hopeful",
-            "Brave",
-            "Motivated"
-        ],
-        "correct": ["Purposeful", "Adaptable", "Nurturing", "Inspiring", "Compassionate"]
-    }
-];
-
-
-
 const Page = () => {
-
-    const compliments = ["Keep going!! 💯", "You're almost there!! 💪", "Just WOW!!! 🔥", "const's go!! 👻", "Keep it up!!! 👏", "Incredible!! 🔥", "Amazing work!! ✨", "Super speed!! 😎"];
     const router = useRouter();
     const optionsRef = useRef(null);
-    const [showModal, updateShowModal] = useState(false);
+    const [showComplimentModal, updateShowComplimentModal] = useState(false);
     // const [user, loading, error] = useAuthState(auth, options);
     const [gameState, setGameState] = useState({
         lives: 3,
@@ -572,6 +45,7 @@ const Page = () => {
         currentLevel: 0,
         settings: { sound: true, darkMode: false }
     });
+    const [gameData, updateGameData] = useState(gameAcronyms);
 
     const { currentQuestion, score, lives, gameStatus, userAnswers, settings, currentLevel } = gameState;
     const [leaderboard, setLeaderboard] = useState([]);
@@ -676,7 +150,7 @@ const Page = () => {
         };
 
         return (
-            <div className="w-full ">
+            <div className="w-full hidden lg:block">
                 {isSmallScreen ? (
                     // Render Pie chart for small screens
                     <Bar data={data} options={options} />
@@ -706,14 +180,15 @@ const Page = () => {
     };
 
     useEffect(() => {
+        // randomize the gateData // comment this out for easier testing
+        updateGameData(shuffleArray(gameAcronyms));
+        
         const fetchLeaderboard = async () => {
             try {
                 const scoresSnapshot = await getDocs(leaderboardCollection);
                 const scoresList = scoresSnapshot.docs.map(doc => doc.data());
 
                 setnumberOfPlayers(scoresList.length)
-
-
 
                 // Filter and sort by score in descending order
                 const sortedList = scoresList
@@ -746,12 +221,9 @@ const Page = () => {
     const saveScoreToFirebase = async (user, score) => {
         const userDetails = localStorage.getItem("userDetails");
         const parsedUser = userDetails ? JSON.parse(userDetails) : null;
-        // console.log(parsedUser);
+        // console.log(parsedUser, userDetails);
 
         setUser(parsedUser);
-        // console.log(user);
-        // console.log(localStorage.getItem("userDetails"));
-
 
         if (!user) {
             console.error("User not found. Cannot save score.");
@@ -769,9 +241,13 @@ const Page = () => {
             if (!querySnapshot.empty) {
                 const existingUserDoc = querySnapshot.docs[0];
                 const userDocRef = doc(leaderboardCollection, existingUserDoc.id);
+                const existingScore = existingUserDoc._document.data.value.mapValue.fields.score.integerValue;
 
-                await updateDoc(userDocRef, { score });
-                // console.log("Score updated successfully.");
+                // Only update records if previous / existing record is less than new record
+                if (existingScore < score) {
+                    await updateDoc(userDocRef, { score });
+                    console.log("Score updated successfully.");
+                }
             } else {
                 await addDoc(leaderboardCollection, {
                     uid: user.uid,
@@ -779,7 +255,7 @@ const Page = () => {
                     email: user.email,
                     score: score
                 });
-                // console.log("Score saved successfully.");
+                console.log("Score saved successfully.");
             }
         } catch (error) {
             console.error("Error saving score:", error);
@@ -862,8 +338,8 @@ const Page = () => {
     };
 
     const temporarilyShowModal = () => {
-        updateShowModal(true);
-        setTimeout(() => updateShowModal(false), 1500);
+        updateShowComplimentModal(true);
+        setTimeout(() => updateShowComplimentModal(false), 1500);
     }
 
     function shuffleArray(array) {
@@ -900,14 +376,15 @@ const Page = () => {
             gameStatus: "playing",
             settings: { ...gameState.settings }
         });
+
+        // shuffle all the acronyms for each game session
+        const previousGameData = [...gameData];
+        updateGameData(shuffleArray(previousGameData));        
     };
 
     const toggleSound = () => {
         setGameState(prevState => ({ ...prevState, settings: { ...prevState.settings, sound: !prevState.settings.sound } }));
     };
-
-
-
 
     if (!currentData) {
         router.push("/game/menu");
@@ -918,9 +395,6 @@ const Page = () => {
             saveScoreToFirebase(user, score);
         }
     }, [gameStatus, score]);
-
-
-
 
 
     useEffect(() => {
@@ -967,9 +441,9 @@ const Page = () => {
                 }
                 previousScore = user.score;
                 return (
-                    <li className=' text-[16px] md:text-[18px]' key={index}>
+                    <li className=' text-white text-nowrap py-2 text-[16px] md:text-[18px]' key={index}>
                         {index + 1} - {formatName(user.displayName || user.name)}
-                        <span className=' text-[42px]  font-bold'>{getAward(displayRank)}
+                        <span className='text-sm  font-bold lg:text-[35px]'>{getAward(displayRank)}
                         </span> ~ {user.score}
                     </li>
                 );
@@ -1021,39 +495,45 @@ const Page = () => {
     if (gameStatus === "gameOver") {
         // saveScoreToFirebase(score);
         return (
-            <Modal blur={false} show={true}>
+            // <Modal blur={false} show={true}>
+            <div className='w-screen absolute min-h-[100vh] max-w-screen z-[500] top-0 left-0 p-8 flex justify-center items-center bg-blue-950 backdrop-blur-[15px] cursor-pointer'>
                 {!showLeaderboard ? (
                     // First Div (GAME OVER Screen)
-                    <div className='p-2 flex flex-col justify-center  items-center gap-4 px-8'>
-                        <h1 className='text-white font-[800] text-[32px] leading-[39px]'>GAME OVER</h1>
-                        <Image src={"/game/heartbreak-icon.svg"} alt='Heart break icon' width={83} height={80} />
-                        <h3 className='text-2xl text-white font-bold'>Your Final score is: {score}</h3>
-                        <div id="buttons" className='flex gap-6 py-2 pb-8'>
-                            {/* <div id='restart' className='cursor-pointer' onClick={resetGame}>
-                                <div className='p-6 bg-black rounded-lg shadow-xl'>
-                                    <Image src={"/game/restart-icon.svg"} className='w-[34px] h-[41px]' priority width={50} height={50} alt='restart-icon' />
-                                </div>
-                            </div> */}
+                    <div className='bg-[url("/game/wood-bg.jpg")] md:h-[100%] md:w-[40%]  w-full p-4 rounded-2xl mx-4 sm:mx-0 sm:p-8 cursor-default'>
+                        <div className='p-2 flex flex-col justify-center  items-center gap-4 px-8'>
+                            <h1 className='text-white font-[800] text-[32px] leading-[39px]'>GAME OVER</h1>
+                            <Image src={"/game/heartbreak-icon.svg"} alt='Heart break icon' width={83} height={80} />
+                            <h3 className='text-2xl text-white font-bold'>Your Final score is: {score}</h3>
+                            <div id="buttons" className='flex gap-6 py-2 pb-8'>
+                                {/* <div id='restart' className='cursor-pointer' onClick={resetGame}>
+                                    <div className='p-6 bg-black rounded-lg shadow-xl'>
+                                        <Image src={"/game/restart-icon.svg"} className='w-[34px] h-[41px]' priority width={50} height={50} alt='restart-icon' />
+                                    </div>
+                                </div> */}
+                            </div>
                         </div>
                     </div>
                 ) : (
                     // Second Div (Highest Rank)
-                    <div className="bg-[#313131cc] backdrop-blur-sm w-[90%] mx-auto md:min-h-screen h-[90%] relative justify-center items-center flex py-[1.1rem] flex-col gap-[1.5rem] rounded-md p-4 text-white">
-                        <p className='  top-3 left-9 text-start mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + numberOfPlayers}</span></p>
-                        <h1 className=" text-2xl md:text-3xl font-extrabold underline text-center  pb-4">Top 5 Highest Rank</h1>
+                    <div className='bg-[url("/game/wood-bg.jpg")] max-w-screen p-4 rounded-lg sm:p-8 '>
+                        <div className="bg-[#313131cc] w-[70vw] rounded backdrop-blur-sm flex flex-col p-8 max-h-screen">
+                            <p className='text-white top-3 left-9 text-center mt-[12px]'>Total Number of Players : <span className=' text-[#f89b06] text-[18px] font-semibold'>{300 + numberOfPlayers}</span></p>
+                            <h1 className=" text-2xl md:text-3xl font-extrabold underline text-center font-arsenal text-white  pb-4">THE BIG 5 (RANKING)</h1>
 
-                        <ul>{renderLeaderboard(leaderboard)}</ul>
-
-                        <LeaderboardChart leaderboard={leaderboard} />
-                        <div id='restart' className='cursor-pointer self-center' onClick={resetGame}>
-                            <div className='p-3 mt-[.9rem] text-center self-center justify-center  w-[15rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
-                                <Image src={"/game/restart-icon.svg"} className='w-[24px] h-[21px]' priority width={50} height={50} alt='restart-icon' />
-                                Try again
+                            <div id="leaderboard-list-and-chart-wrapper" className='flex justify-center'>
+                                <ul className='basis-[80%] text-sm lg:basis-[65%]'>{renderLeaderboard(leaderboard)}</ul>
+                                <LeaderboardChart leaderboard={leaderboard} />
+                            </div>
+                            <div id='restart' className='cursor-pointer self-center' onClick={resetGame}>
+                                <div className='p-3 mt-[.9rem] text-center self-center justify-center  w-[15rem] bg-[#dd8c23] rounded-full flex gap-2 items-center  text-[1.2rem] text-white  shadow-xl'>
+                                    <Image src={"/game/restart-icon.svg"} className='w-[24px] h-[21px]' priority width={50} height={50} alt='restart-icon' />
+                                    Try again
+                                </div>
                             </div>
                         </div>
                     </div>
                 )}
-            </Modal>
+            </div>
         );
     }
 
@@ -1109,12 +589,12 @@ const Page = () => {
     // }, [gameStatus, score]);
 
     return (
-        <div id='game-page' className='bg-blue-950 p-3 grid  md:p-0 w-full min-h-screen md:h-screen'>
-            {showModal ? <Modal blur show={true}>
-                <h1 className='text-white text-4xl font-extrabold p-12'>{compliments[Math.floor(compliments.length * Math.random())]}</h1>
+        <div id='game-page' className='bg-blue-950 p-3 grid max-w-screen  md:p-0 w-full min-h-screen md:h-screen'>
+            {showComplimentModal ? <Modal blur show={true}>
+                <h1 className='text-white text-4xl text-center font-extrabold p-12'>{compliments[Math.floor(compliments.length * Math.random())]}</h1>
             </Modal> : ""}
 
-            <div id="game-content" className='bg-[url("/game/wood-bg.jpg")] rounded-2xl w-full  gap-0 md:pt-6 flex justify-center flex-col md:flex-row lg:gap-5'>
+            <div id="game-content" className='bg-[url("/game/wood-bg.jpg")] max-w-screen rounded-2xl w-full  gap-0 md:pt-6 flex justify-center flex-col md:flex-row lg:gap-5'>
 
                 <div id="sound-pause" className='flex gap-2 lg:gap-6 relative justify-center bottom-12 mt-20 md:pl-3 md:flex-col md:justify-start lg:pt-0'>
                     <div id="sound" onClick={toggleSound} className={`${!gameState.settings.sound ? "bg-red-500" : " bg-white"} scale-75 p-6  rounded-[20px] 
@@ -1131,9 +611,9 @@ const Page = () => {
                     </div>
                 </div>
 
-                <div id="game-content" className='flex flex-col pb-10 sm:pb-0 md:mr-4 xl:mr-0'>
+                <div id="details-options" className='flex flex-col pb-10 max-w-screen sm:pb-0 md:mr-4 xl:mr-0'>
                     <div id="display-board" className='w-[95%] flex self-center flex-col gap-4  bg-white rounded-[20px] p-8 lg:mt-4 lg:w-full'>
-                        <div id="board-top-section" className='flex w-full gap-1 justify-between'>
+                        <div id="board-top-section" className='flex flex-col w-full gap-1 justify-between items-center xs:flex-row xs:items-start'>
                             <span className='leading-[29px] font-[500] text-sm text-nowrap sm:text-[24px] text-black'>Score: {score}</span>
                             <p className='font-[300] text-sm sm:text-[20px] text-nowrap leading-[24px]'>Select the correct words</p>
                             <div id="lives" className='flex gap-1 self-center'>

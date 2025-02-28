@@ -8,7 +8,7 @@ const Page = () => {
             <div id="main-game-page-content" className='bg-[url("/game/wood-bg.jpg")] rounded-2xl w-full h-full flex justify-center flex-col md:flex-row items-center gap-24'>
                 <Link href={"/game/menu"} id='menu-item' className='menu-item'>
                     <div className='p-6 bg-black rounded-lg'><Image src={"/game/menu-icon.svg"} className='w-[50px] h-[50px]' priority width={50} height={50} alt='menu-icon' /></div>
-                    <p>Main Menu</p>
+                    <p className='font-arsenal font-bold'>Main Menu</p>
                 </Link>
 
                 {/* <Link href={"#"} id='settings-item' className='menu-item'>
